@@ -13,6 +13,15 @@ public class BallSpawner : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     public int sameColorCnt;
+    private GameObject[] balls = new GameObject[400];
+
+    private void Start() {
+        for(int i = 0; i < ballCount; i++) {
+            GameObject ball = Instantiate(ballPrefab);
+            ball.SetActive(false);
+            balls[i] = ball;
+        }
+    }
     
     public void SetColorCount(int count) {
         colorCount = count;
@@ -27,23 +36,25 @@ public class BallSpawner : MonoBehaviour
         sameColorCnt = 0;
         for(i = 0; i < ballCount; i++)
         {
+            balls[i].SetActive(false);
             float randomSize = Random.Range(minSize, maxSize);
             Vector3 randomPosition = new Vector3(Random.Range(-planeSize, planeSize), randomSize / 2.0f - 0.5f, Random.Range(-planeSize, planeSize));
 
             if(!IntersectsExistingBalls(randomPosition, randomSize))
             {
-                GameObject ball = Instantiate(ballPrefab, randomPosition, Quaternion.identity);
-                ball.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
-                ball.transform.parent = transform;
+                balls[i].transform.position = randomPosition;
+                balls[i].transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+                balls[i].transform.parent = transform;
                 int colorIndex = Random.Range(0, colorCount * 4);
                 if(colorIndex < colorCount) {
-                    ball.GetComponent<MeshRenderer>().material.color = colorArray[0];
+                    balls[i].GetComponent<MeshRenderer>().material.color = colorArray[0];
                     sameColorCnt ++;
                 } else if(colorIndex < 2 * colorCount && colorIndex >= colorCount) {
-                    ball.GetComponent<MeshRenderer>().material.color = colorArray[1];
+                    balls[i].GetComponent<MeshRenderer>().material.color = colorArray[1];
                 }
                 else
-                    ball.GetComponent<MeshRenderer>().material.color = colorArray[(colorIndex / 4 + 2) % (colorCount - 2)];
+                    balls[i].GetComponent<MeshRenderer>().material.color = colorArray[(colorIndex / 4 + 2) % (colorCount - 2)];
+                balls[i].SetActive(true);
             }
         }
     }
