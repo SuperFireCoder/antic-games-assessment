@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
         mainMenu?.SetActive(false);
         gameHUD?.SetActive(true);
         gameManager?.StartGame();
+        UpdateHUD();
         playerController.isPlay = true;
     }
 
@@ -59,6 +60,13 @@ public class UIManager : MonoBehaviour
             playerController.isPlay = false;
             labelResult.SetText($"Victory\n\nYou earned {gameManager.PlayerScore()} points in 10 turns");
         }
+    }
+
+    public void Exit() {
+        gameHUD?.SetActive(false);
+        gameoverMenu?.SetActive(true);
+        playerController.isPlay = false;
+        labelResult.SetText($"Exit\n\nYou earned {gameManager.PlayerScore()} points in {10 - gameManager.move} turns");
     }
 
     public void SetColor() {

@@ -19,10 +19,17 @@ public class GameManager : MonoBehaviour
     public int enemyCorrect = 0, enemyWrong = 0;
     public bool isStarted = false;
     public Turn turn = Turn.Idle;
+    public Vector3 playerPos, enemyPos;
 
     public void StartGame() {
+        move = 10;
+        playerCorrect = 0; playerWrong = 0;
+        enemyCorrect = 0; enemyWrong = 0;
         BallSpawner ballSpawner = FindObjectOfType<BallSpawner>();
         ballSpawner.StartGame();
+        transform.Find("Player").position = playerPos;
+        transform.Find("Hint").position = playerPos;
+        transform.Find("Enemy").position = enemyPos;
         isStarted = true;
     }
 
