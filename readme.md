@@ -2,6 +2,12 @@
 
 This repository contains a Unity project created for the Antic Games Assessment. The project includes game assets, scripts, and configurations necessary to run the game.
 
+## Timesheet
+
+- **Initial Implementation**: 3 hours
+- **Add Readme**: 30 minutes
+- **Add Elaboration Videos**: 30 minutes
+
 ## Project Structure
 
 - **Assets/**: Contains all the game assets including scripts, prefabs, scenes, and more.
